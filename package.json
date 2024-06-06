@@ -64,7 +64,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/idapgroup/react-image-annotate.git"
+    "url": "git+https://github.com/maheswarantp/react-image-annotate.git"
   },
   "scripts": {
     "start": "vite --force",
