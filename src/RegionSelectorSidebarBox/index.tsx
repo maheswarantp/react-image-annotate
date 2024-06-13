@@ -176,6 +176,7 @@ interface RowProps {
   onSelectRegion: (r: Region) => void;
   onDeleteRegion: (r: Region) => void;
   onChangeRegion: (r: Region) => void;
+  getDeletedRegionInformation?: (r: Region) => void;
   visible?: boolean;
   locked?: boolean;
   color: string;
@@ -191,6 +192,7 @@ const Row = ({
   onSelectRegion,
   onDeleteRegion,
   onChangeRegion,
+  getDeletedRegionInformation,
   color,
   cls,
   index,
@@ -210,7 +212,10 @@ const Row = ({
       classification={<Chip text={clsLabel || ""} color={color || "#ddd"} />}
       trash={
         regionAllowedActions.remove ? (
-          <TrashIcon onClick={() => onDeleteRegion(r)} className="icon2" />
+          <TrashIcon onClick={() => {
+            getDeletedRegionInformation?.(r)
+            onDeleteRegion(r)
+          }} className="icon2" />
         ) : null
       }
       lock={
@@ -268,6 +273,7 @@ interface RegionSelectorSidebarBoxProps {
   onDeleteRegion: (r: Region) => void;
   onChangeRegion: (r: Region) => void;
   onSelectRegion: (r: Region) => void;
+  getDeletedRegionInformation?: (r: Region) => void;
 }
 
 export const RegionSelectorSidebarBox = ({
@@ -276,6 +282,7 @@ export const RegionSelectorSidebarBox = ({
   onDeleteRegion,
   onChangeRegion,
   onSelectRegion,
+  getDeletedRegionInformation,
   regionAllowedActions,
 }: RegionSelectorSidebarBoxProps) => {
   const { classes } = useStyles();
@@ -301,6 +308,7 @@ export const RegionSelectorSidebarBox = ({
               onSelectRegion={onSelectRegion}
               onDeleteRegion={onDeleteRegion}
               onChangeRegion={onChangeRegion}
+              getDeletedRegionInformation={getDeletedRegionInformation}
             />
           ))}
         </div>

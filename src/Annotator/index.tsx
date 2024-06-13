@@ -10,7 +10,7 @@ import {
 import { ComponentType, FunctionComponent, useEffect, useReducer } from "react";
 import Immutable, { ImmutableObject } from "seamless-immutable";
 
-import type { KeypointsDefinition } from "../types/region-tools.ts";
+import type { KeypointsDefinition, Region } from "../types/region-tools.ts";
 import MainLayout from "../MainLayout";
 import SettingsProvider from "../SettingsProvider";
 import combineReducers from "./reducers/combine-reducers";
@@ -58,6 +58,7 @@ export type AnnotatorProps = {
   allowComments?: boolean;
   onNextImage?: (state: MainLayoutState) => void;
   onPrevImage?: (state: MainLayoutState) => void;
+  getDeletedRegionInformation?: (r: Region) => void;
 };
 
 export const Annotator = ({
@@ -97,6 +98,7 @@ export const Annotator = ({
   onExit,
   onNextImage,
   onPrevImage,
+  getDeletedRegionInformation,
   keypointDefinitions,
   autoSegmentationOptions = { type: "autoseg" },
   hideHeader,
@@ -221,6 +223,7 @@ export const Annotator = ({
         alwaysShowPrevButton={Boolean(onPrevImage)}
         state={state}
         dispatch={dispatch}
+        getDeletedRegionInformation={getDeletedRegionInformation}
         onRegionClassAdded={onRegionClassAdded}
         hideHeader={hideHeader}
         hideHeaderText={hideHeaderText}

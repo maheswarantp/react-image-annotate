@@ -40,6 +40,7 @@ import Workspace from "../workspace/Workspace";
 import { tss } from "tss-react/mui";
 import { RegionLabelProps } from "../RegionLabel";
 import SettingsDialog from "../SettingsDialog";
+import { Region } from "../lib.tsx";
 
 // import Fullscreen from "../Fullscreen"
 
@@ -85,6 +86,7 @@ type Props = {
     | FunctionComponent<RegionLabelProps>
     | null;
   dispatch: (action: Action) => void;
+  getDeletedRegionInformation?: (r: Region) => void;
   alwaysShowNextButton?: boolean;
   alwaysShowPrevButton?: boolean;
   onRegionClassAdded: (cls: string) => void;
@@ -101,6 +103,7 @@ type Props = {
 export const MainLayout = ({
   state,
   dispatch,
+  getDeletedRegionInformation,
   RegionEditLabel,
   onRegionClassAdded,
   hideHeader,
@@ -218,6 +221,7 @@ export const MainLayout = ({
       onBeginRegionEdit={action("OPEN_REGION_EDITOR", "region")}
       onCloseRegionEdit={action("CLOSE_REGION_EDITOR", "region")}
       onDeleteRegion={action("DELETE_REGION", "region")}
+      getDeletedRegionInformation={getDeletedRegionInformation}
       onBeginBoxTransform={action("BEGIN_BOX_TRANSFORM", "box", "directions")}
       onBeginMovePolygonPoint={action(
         "BEGIN_MOVE_POLYGON_POINT",
@@ -365,6 +369,7 @@ export const MainLayout = ({
       regionAllowedActions={state.regionAllowedActions}
       onSelectRegion={action("SELECT_REGION", "region")}
       onDeleteRegion={action("DELETE_REGION", "region")}
+      getDeletedRegionInformation={getDeletedRegionInformation}
       onChangeRegion={action("CHANGE_REGION", "region")}
     />,
     state.annotationType === "video" && state.keyframes && (

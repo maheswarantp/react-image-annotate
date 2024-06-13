@@ -103,6 +103,7 @@ type Props = {
   onBeginRegionEdit: (region: Region) => void;
   onCloseRegionEdit: (region: Region) => void;
   onDeleteRegion: (region: Region) => void;
+  getDeletedRegionInformation?: (r: Region) => void;
   onBeginBoxTransform: (region: Box, point: [number, number]) => void;
   onBeginMovePolygonPoint: (region: Polygon, index: number) => void;
   onBeginMoveKeypoint: (region: Keypoints, keypointId: string) => void;
@@ -183,6 +184,7 @@ export const ImageCanvas = ({
   onSelectRegion,
   onBeginMovePoint,
   onDeleteRegion,
+  getDeletedRegionInformation,
   onChangeVideoTime,
   onChangeVideoPlaying,
   onRegionClassAdded,
@@ -456,7 +458,10 @@ export const ImageCanvas = ({
               onBeginRegionEdit={onBeginRegionEdit}
               onChangeRegion={onChangeRegion}
               onCloseRegionEdit={onCloseRegionEdit}
-              onDeleteRegion={onDeleteRegion}
+              onDeleteRegion={(r) => {
+                getDeletedRegionInformation?.(r)
+                onDeleteRegion(r)
+              }}
               RegionEditLabel={RegionEditLabel}
               onRegionClassAdded={onRegionClassAdded}
               allowComments={allowComments}
