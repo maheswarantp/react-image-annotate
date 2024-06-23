@@ -8,6 +8,7 @@ import type { Region } from "../types/region-tools.ts";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import TrashIcon from "@mui/icons-material/Delete";
+import { RemoveRedEye } from "@mui/icons-material";
 import CheckIcon from "@mui/icons-material/Check";
 import TextField from "@mui/material/TextField";
 import Select from "react-select";
@@ -168,6 +169,9 @@ export const RegionLabel = ({
                 {region.type}
               </div>
               <div style={{ flexGrow: 1 }} />
+              <IconButton tabIndex={-1} style={{width: 22, height: 22}} size="small">
+                <RemoveRedEye style={{marginTop: -8, width: 16, height: 16}} onClick={() => onChange({...region, visible: false})}/>
+              </IconButton>
               <IconButton
                 onClick={() => onDelete(region)}
                 tabIndex={-1}
