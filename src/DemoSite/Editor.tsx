@@ -60,6 +60,7 @@ export const examples: Record<string, () => Omit<AnnotatorProps, "onExit">> = {
       "show-mask",
       "create-keypoints",
     ],
+    resetState: () => console.log("HELLO"),
     showTags: true,
     keypointDefinitions: {
       "1": {

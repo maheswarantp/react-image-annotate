@@ -81,6 +81,7 @@ const FullScreenContainer = styled("div")(() => ({
 
 type Props = {
   state: MainLayoutState;
+  resetState?: () => void;
   RegionEditLabel?:
     | ComponentType<RegionLabelProps>
     | FunctionComponent<RegionLabelProps>
@@ -102,6 +103,7 @@ type Props = {
 
 export const MainLayout = ({
   state,
+  resetState,
   dispatch,
   getDeletedRegionInformation,
   RegionEditLabel,
@@ -255,16 +257,21 @@ export const MainLayout = ({
   });
 
   const onClickHeaderItem = useEventCallback((item: { name: string }) => {
-    const btnName = item.name.toLowerCase();
-    if (btnName === "fullscreen") {
-      fullScreenHandle.enter();
-    } else if (btnName === "window") {
-      fullScreenHandle.exit();
+    if(item.name.toLowerCase() !== "reset state"){
+      const btnName = item.name.toLowerCase();
+      if (btnName === "fullscreen") {
+        fullScreenHandle.enter();
+      } else if (btnName === "window") {
+        fullScreenHandle.exit();
+      }
+      dispatch({
+        type: "HEADER_BUTTON_CLICKED",
+        buttonName: item.name,
+      });
+    } else {
+      resetState?.()
     }
-    dispatch({
-      type: "HEADER_BUTTON_CLICKED",
-      buttonName: item.name,
-    });
+    
   });
 
   const debugModeOn = Boolean(
@@ -278,6 +285,7 @@ export const MainLayout = ({
       [
         !hidePrev && { name: "Prev" },
         !hideNext && { name: "Next" },
+        {name: "Reset"},
         state.annotationType !== "video"
           ? null
           : !state.videoPlaying
@@ -298,6 +306,7 @@ export const MainLayout = ({
       }, []),
     [
       state.fullScreen,
+      resetState,
       state.annotationType,
       hidePrev,
       hideNext,

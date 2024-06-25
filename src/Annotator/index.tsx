@@ -23,6 +23,7 @@ import videoReducer from "./reducers/video-reducer";
 import { AutosegOptions } from "autoseg/webworker";
 
 export type AnnotatorProps = {
+  resetState?: () => void;
   taskDescription?: string;
   allowedArea?: { x: number; y: number; w: number; h: number };
   regionTagList?: Array<string>;
@@ -62,6 +63,7 @@ export type AnnotatorProps = {
 };
 
 export const Annotator = ({
+  resetState,
   images,
   allowedArea,
   selectedImage = images && images.length > 0 ? 0 : undefined,
@@ -218,6 +220,7 @@ export const Annotator = ({
   return (
     <SettingsProvider>
       <MainLayout
+        resetState={resetState}
         RegionEditLabel={RegionEditLabel}
         alwaysShowNextButton={Boolean(onNextImage)}
         alwaysShowPrevButton={Boolean(onPrevImage)}
